@@ -17,7 +17,8 @@
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9; color: #1e293b; font-size: 14px; }
   .header { background: var(--brand); color: white; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .header-left { display: flex; align-items: center; gap: 14px; }
-  .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; color: var(--brand2); }
+  .logo { display: flex; align-items: center; }
+  .logo img { height: 44px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
   .header-title { font-size: 15px; font-weight: 500; opacity: .85; }
   .view-toggle { display: flex; background: rgba(255,255,255,.12); border-radius: 8px; overflow: hidden; }
   .view-toggle button { padding: 7px 18px; border: none; background: transparent; color: rgba(255,255,255,.7); cursor: pointer; font-size: 13px; font-weight: 500; transition: all .2s; }
@@ -83,7 +84,7 @@
 
 <div class="header">
   <div class="header-left">
-    <div class="logo">KSESTOR</div>
+    <div class="logo"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMjAgODAiIHdpZHRoPSIxNjAiIGhlaWdodD0iNDQiPgogIDxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iODAiIGZpbGw9InRyYW5zcGFyZW50Ii8+CiAgPHRleHQgeD0iOCIgeT0iNTIiIGZvbnQtZmFtaWx5PSJBcmlhbCBCbGFjaywgQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZvbnQtc2l6ZT0iNTIiIGZpbGw9IndoaXRlIiBsZXR0ZXItc3BhY2luZz0iMiI+S1NFU1RPUjwvdGV4dD4KICA8dGV4dCB4PSIxMCIgeT0iNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zaXplPSIxMSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjY1KSIgbGV0dGVyLXNwYWNpbmc9IjYiPkhPU1QgQ0VMRUJSQVRFIElOU1BJUkU8L3RleHQ+Cjwvc3ZnPg==" alt="KSESTOR"></div>
     <div>
       <div class="header-title">Buy Box &amp; Pricing Monitor</div>
       <div style="font-size:11px;opacity:.6;">Amazon US, Canada &amp; UK — Private Dashboard</div>

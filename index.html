@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KSESTOR — Buy Box & Pricing Monitor</title>
+<title>KSESTOR — Buy Box & Pricing Monitor (US, CA, UK)</title>
 <style>
   :root {
     --green: #16a34a; --green-light: #dcfce7; --green-border: #86efac;
@@ -128,7 +128,7 @@
     <div class="logo">KSESTOR</div>
     <div>
       <div class="header-title">Buy Box &amp; Pricing Monitor</div>
-      <div style="font-size:11px;opacity:.6;">Amazon US &amp; Canada — Private Dashboard</div>
+      <div style="font-size:11px;opacity:.6;">Amazon US, Canada &amp; UK — Private Dashboard</div>
     </div>
     <span class="client-badge">CLIENT VIEW</span>
   </div>
@@ -149,6 +149,7 @@
     <label>Marketplace</label>
     <button class="mkt-tab active" onclick="setMarket('US')" id="mkt-us">🇺🇸 Amazon US</button>
     <button class="mkt-tab" onclick="setMarket('CA')" id="mkt-ca">🇨🇦 Amazon CA</button>
+    <button class="mkt-tab" onclick="setMarket('UK')" id="mkt-uk">🇬🇧 Amazon UK</button>
   </div>
   <div style="display:flex;align-items:center;gap:8px;margin-left:10px;">
     <label>Date</label>
@@ -255,6 +256,25 @@
 const DATA = {
   "2026-04-21": {
     label: "April 21, 2026",
+    UK: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor. Verify live pricing on amazon.co.uk." },
+      ],
+      summary: { won:11, watch:0, lost:0 },
+      actions: [
+        { priority:"🟡 MED", product:"All UK Products", action:"UK marketplace newly added to monitoring. Live prices and Buy Box data to be confirmed on next scheduled check (Tuesday/Friday). Seller: Hostwithksestor.", marketplace:"UK" },
+      ]
+    },
     US: {
       products: [
         { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$31.99", bbPrice:"$31.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Price reduced from $39.99 → $31.99. Sole seller. Ships via Amazon FBA." },
@@ -299,6 +319,23 @@ const DATA = {
   },
   "2026-04-15": {
     label: "April 15, 2026",
+    UK: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Data to be confirmed on next check." },
+      ],
+      summary: { won:11, watch:0, lost:0 },
+      actions: []
+    },
     US: {
       products: [
         { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$39.99", bbPrice:"$39.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
@@ -335,6 +372,23 @@ const DATA = {
   },
   "2026-04-14": {
     label: "April 14, 2026",
+    UK: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"—", bbPrice:"—", bbWinner:"—", otherSellers:0, status:"WON", notes:"UK monitoring added Apr 23. Historical UK data not available for this date." },
+      ],
+      summary: { won:11, watch:0, lost:0 },
+      actions: []
+    },
     US: {
       products: [
         { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$39.99", bbPrice:"$39.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. No competing new sellers." },
@@ -391,6 +445,7 @@ const ALERTS = [
 // ============================================================
 let currentView = 'internal';
 let currentMarket = 'US';
+
 let currentDate = '2026-04-21';
 let currentTab = 'monitor';
 
@@ -410,7 +465,7 @@ function statusPill(status) {
   return '<span class="history-pill pill-nolink">—</span>';
 }
 function asinLink(asin, market) {
-  const base = market === 'CA' ? 'https://www.amazon.ca/dp/' : 'https://www.amazon.com/dp/';
+  const base = market === 'CA' ? 'https://www.amazon.ca/dp/' : market === 'UK' ? 'https://www.amazon.co.uk/dp/' : 'https://www.amazon.com/dp/';
   const cleanAsin = asin.trim();
   return `<a class="asin-link" href="${base}${cleanAsin}" target="_blank">${cleanAsin}</a>`;
 }
@@ -436,6 +491,7 @@ function setMarket(m) {
   currentMarket = m;
   document.getElementById('mkt-us').classList.toggle('active', m === 'US');
   document.getElementById('mkt-ca').classList.toggle('active', m === 'CA');
+  document.getElementById('mkt-uk').classList.toggle('active', m === 'UK');
   renderAll();
 }
 
@@ -446,177 +502,4 @@ function onDateChange() {
 
 function setTab(t) {
   currentTab = t;
-  ['monitor','history','alerts'].forEach(tab => {
-    document.getElementById(`tab-${tab}-content`).classList.toggle('active', tab === t);
-    const btn = document.getElementById(`tab-${tab}`);
-    if (btn) btn.classList.toggle('active', tab === t);
-  });
-  if (t === 'history') renderHistory();
-  if (t === 'alerts') renderAlerts();
-}
-
-// ============================================================
-// RENDER KPIs
-// ============================================================
-function renderKPIs(data) {
-  const s = data.summary;
-  const total = (data.products || []).length;
-  document.getElementById('kpiRow').innerHTML = `
-    <div class="kpi total"><div class="kpi-label">Total Products</div><div class="kpi-value">${total}</div><div class="kpi-sub">Monitored this check</div></div>
-    <div class="kpi won"><div class="kpi-label">✅ Buy Box WON</div><div class="kpi-value">${s.won}</div><div class="kpi-sub">Ksestor holds BB</div></div>
-    <div class="kpi watch"><div class="kpi-label">⚠️ WATCH</div><div class="kpi-value">${s.watch}</div><div class="kpi-sub">BB held, competitors active</div></div>
-    <div class="kpi lost"><div class="kpi-label">🔴 BB LOST</div><div class="kpi-value">${s.lost}</div><div class="kpi-sub">${s.lost > 0 ? 'URGENT — action required' : 'No losses this check'}</div></div>
-  `;
-}
-
-// ============================================================
-// RENDER MAIN TABLE
-// ============================================================
-function renderTable(data) {
-  const d = DATA[currentDate];
-  const mktLabel = currentMarket === 'US' ? '🇺🇸 Amazon US' : '🇨🇦 Amazon CA';
-  document.getElementById('tableTitle').textContent = `${mktLabel} — Buy Box Monitor`;
-  document.getElementById('tableMeta').textContent = `Checked: ${d.label}`;
-  document.getElementById('actionMeta').textContent = `As of ${d.label}`;
-
-  // Head
-  document.getElementById('tableHead').innerHTML = `
-    <th>#</th>
-    <th>Product</th>
-    <th>ASIN</th>
-    <th>Our Price</th>
-    <th>BB Price</th>
-    <th>BB Winner</th>
-    <th>Other Sellers</th>
-    <th>Status</th>
-    <th class="notes-col internal-only">Notes / Action</th>
-  `;
-
-  // Body
-  const rows = (data.products || []).map((p, i) => `
-    <tr>
-      <td style="color:var(--gray);font-size:12px;">${i+1}</td>
-      <td style="font-weight:600;">${p.product}</td>
-      <td>${asinLink(p.asin, currentMarket)}</td>
-      <td>${p.ourPrice}</td>
-      <td style="font-weight:600;">${p.bbPrice}</td>
-      <td style="font-size:12px;color:${p.bbWinner === 'Ksestor' || p.bbWinner.includes('K-Store') ? 'var(--green)' : 'var(--red)'};">${p.bbWinner}</td>
-      <td style="text-align:center;">${p.otherSellers > 0 ? `<span style="color:var(--yellow);font-weight:700;">${p.otherSellers}</span>` : '<span style="color:var(--gray);">0</span>'}</td>
-      <td>${statusBadge(p.status)}</td>
-      <td class="notes-col internal-only" style="font-size:12px;color:#475569;max-width:280px;">${p.notes}</td>
-    </tr>
-  `).join('');
-  document.getElementById('tableBody').innerHTML = rows;
-
-  // Action items
-  const actions = (data.actions || []);
-  if (actions.length === 0) {
-    document.getElementById('actionBody').innerHTML = '<tr><td colspan="4" class="no-data">No action items for this check date.</td></tr>';
-  } else {
-    document.getElementById('actionBody').innerHTML = actions.map(a => `
-      <tr>
-        <td style="font-size:13px;white-space:nowrap;">${a.priority}</td>
-        <td style="font-size:12px;font-family:monospace;color:var(--brand);">${a.product.replace('\n','<br>')}</td>
-        <td style="font-size:12px;max-width:360px;">${a.action}</td>
-        <td><span class="badge" style="background:var(--blue-light);color:var(--blue);border-color:var(--blue-border);">${a.marketplace}</span></td>
-      </tr>
-    `).join('');
-  }
-}
-
-// ============================================================
-// RENDER HISTORY
-// ============================================================
-function renderHistory() {
-  const dates = Object.keys(DATA).sort().reverse();
-  const mkt = currentMarket;
-
-  // Collect all unique products across all dates
-  const allProducts = {};
-  dates.forEach(dt => {
-    (DATA[dt][mkt].products || []).forEach(p => {
-      if (!allProducts[p.asin]) allProducts[p.asin] = p.product;
-    });
-  });
-
-  // Build header
-  document.getElementById('historyHead').innerHTML = `
-    <tr>
-      <th>Product</th>
-      <th>ASIN</th>
-      ${dates.map(dt => `<th style="text-align:center;">${DATA[dt].label.replace(', 2026','')}</th>`).join('')}
-    </tr>
-  `;
-
-  // Build body
-  const rows = Object.entries(allProducts).map(([asin, product]) => {
-    const cells = dates.map(dt => {
-      const found = (DATA[dt][mkt].products || []).find(p => p.asin === asin);
-      return `<td style="text-align:center;">${found ? statusPill(found.status) : '<span style="color:#cbd5e1;">—</span>'}</td>`;
-    }).join('');
-    return `<tr>
-      <td style="font-weight:500;">${product}</td>
-      <td>${asinLink(asin, mkt)}</td>
-      ${cells}
-    </tr>`;
-  }).join('');
-
-  document.getElementById('historyBody').innerHTML = rows || '<tr><td colspan="10" class="no-data">No history data found.</td></tr>';
-}
-
-// ============================================================
-// RENDER ALERTS LOG
-// ============================================================
-function renderAlerts() {
-  const lost = ALERTS.filter(a => a.type === 'lost' || a.type === 'hijacker').length;
-  const hijack = ALERTS.filter(a => a.type === 'hijacker').length;
-  const resolved = ALERTS.filter(a => a.resolved).length;
-  document.getElementById('alertKpiLost').textContent = lost;
-  document.getElementById('alertKpiHijack').textContent = hijack;
-  document.getElementById('alertKpiResolved').textContent = resolved;
-
-  const html = ALERTS.map(a => {
-    let cls = 'alert-card';
-    if (a.resolved) cls += ' resolved';
-    if (a.type === 'hijacker') cls += ' hijacker';
-    const icon = a.type === 'hijacker' ? '🏴‍☠️' : a.type === 'lost' ? '🔴' : '⚠️';
-    const resolvedTag = a.resolved ? '<span style="background:var(--green);color:white;font-size:10px;font-weight:700;padding:1px 7px;border-radius:3px;margin-left:6px;">RESOLVED</span>' : '<span style="background:var(--red);color:white;font-size:10px;font-weight:700;padding:1px 7px;border-radius:3px;margin-left:6px;">ACTIVE</span>';
-    return `
-      <div class="${cls}">
-        <div class="alert-date">${a.date} <span class="alert-mkt">${a.market}</span> ${resolvedTag}</div>
-        <div class="alert-title">${icon} ${a.product} — <span style="font-family:monospace;font-size:12px;">${a.asin}</span></div>
-        <div class="alert-detail">${a.detail}${a.hijacker ? `<br><strong>Unauthorized Seller:</strong> ${a.hijacker}` : ''}</div>
-      </div>
-    `;
-  }).join('');
-
-  document.getElementById('alertsLog').innerHTML = html || '<div class="no-data">No alerts recorded.</div>';
-}
-
-// ============================================================
-// MAIN RENDER
-// ============================================================
-function renderAll() {
-  const d = DATA[currentDate];
-  const mktData = d[currentMarket];
-  renderKPIs(mktData);
-  renderTable(mktData);
-  if (currentTab === 'history') renderHistory();
-  if (currentTab === 'alerts') renderAlerts();
-
-  // Alert banner — show if any LOST in latest date
-  const hasActiveLost = Object.values(DATA).some(dd =>
-    (dd.CA.products || []).some(p => p.status === 'LOST' && !p.resolved) ||
-    (dd.US.products || []).some(p => p.status === 'LOST' && !p.resolved)
-  );
-  document.getElementById('globalAlert').classList.toggle('hidden', false);
-}
-
-// ============================================================
-// INIT
-// ============================================================
-document.getElementById('genDate').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
-renderAll();
-</script>
-</body>
-</html>
+  ['monitor','history','alerts'].forEac

@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSESTOR — Buy Box & Pricing Monitor</title>
+<style>
+  :root {
+    --green: #16a34a; --green-light: #dcfce7; --green-border: #86efac;
+    --red: #dc2626; --red-light: #fee2e2; --red-border: #fca5a5;
+    --yellow: #d97706; --yellow-light: #fef3c7; --yellow-border: #fcd34d;
+    --blue: #2563eb; --blue-light: #dbeafe; --blue-border: #93c5fd;
+    --gray: #6b7280; --gray-light: #f9fafb; --gray-border: #e5e7eb;
+    --brand: #1e3a5f; --brand2: #c8a951;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f1f5f9; color: #1e293b; font-size: 14px; }
+
+  /* HEADER */
+  .header { background: var(--brand); color: white; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .header-left { display: flex; align-items: center; gap: 14px; }
+  .logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; color: var(--brand2); }
+  .header-title { font-size: 15px; font-weight: 500; opacity: .85; }
+  .view-toggle { display: flex; background: rgba(255,255,255,.12); border-radius: 8px; overflow: hidden; }
+  .view-toggle button { padding: 7px 18px; border: none; background: transparent; color: rgba(255,255,255,.7); cursor: pointer; font-size: 13px; font-weight: 500; transition: all .2s; }
+  .view-toggle button.active { background: var(--brand2); color: #1e3a5f; font-weight: 700; }
+
+  /* ALERT BANNER */
+  .alert-banner { background: var(--red-light); border-bottom: 3px solid var(--red); padding: 10px 28px; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--red); font-size: 13px; }
+  .alert-banner.hidden { display: none; }
+
+  /* CONTROLS BAR */
+  .controls { background: white; border-bottom: 1px solid var(--gray-border); padding: 12px 28px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .controls label { font-size: 12px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .5px; }
+  .controls select, .controls input { padding: 6px 10px; border: 1px solid var(--gray-border); border-radius: 6px; font-size: 13px; background: white; color: #1e293b; cursor: pointer; }
+  .controls select:focus, .controls input:focus { outline: 2px solid var(--blue); border-color: var(--blue); }
+  .mkt-tab { padding: 6px 16px; border: 1px solid var(--gray-border); border-radius: 20px; background: white; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--gray); transition: all .2s; }
+  .mkt-tab.active { background: var(--brand); color: white; border-color: var(--brand); }
+
+  /* KPI CARDS */
+  .kpi-row { display: flex; gap: 14px; padding: 18px 28px 0; flex-wrap: wrap; }
+  .kpi { background: white; border-radius: 10px; padding: 14px 20px; flex: 1; min-width: 140px; border: 1px solid var(--gray-border); display: flex; flex-direction: column; gap: 4px; }
+  .kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--gray); font-weight: 600; }
+  .kpi-value { font-size: 28px; font-weight: 800; line-height: 1; }
+  .kpi-sub { font-size: 11px; color: var(--gray); }
+  .kpi.won .kpi-value { color: var(--green); }
+  .kpi.lost .kpi-value { color: var(--red); }
+  .kpi.watch .kpi-value { color: var(--yellow); }
+  .kpi.total .kpi-value { color: var(--brand); }
+
+  /* MAIN TABLE */
+  .section { margin: 18px 28px; background: white; border-radius: 10px; border: 1px solid var(--gray-border); overflow: hidden; }
+  .section-header { padding: 14px 18px; border-bottom: 1px solid var(--gray-border); display: flex; align-items: center; justify-content: space-between; }
+  .section-title { font-size: 14px; font-weight: 700; color: var(--brand); }
+  .section-meta { font-size: 12px; color: var(--gray); }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #f8fafc; padding: 10px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--gray); font-weight: 700; border-bottom: 1px solid var(--gray-border); white-space: nowrap; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: top; font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f8fafc; }
+
+  /* STATUS BADGES */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .badge-won { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+  .badge-lost { background: var(--red-light); color: var(--red); border: 1px solid var(--red-border); }
+  .badge-watch { background: var(--yellow-light); color: var(--yellow); border: 1px solid var(--yellow-border); }
+  .badge-nolink { background: #f3f4f6; color: var(--gray); border: 1px solid var(--gray-border); }
+
+  /* HISTORY TABLE */
+  .history-pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+  .pill-won { background: var(--green-light); color: var(--green); }
+  .pill-lost { background: var(--red-light); color: var(--red); }
+  .pill-watch { background: var(--yellow-light); color: var(--yellow); }
+  .pill-nolink { background: #f3f4f6; color: var(--gray); }
+
+  /* ALERTS LOG */
+  .alert-card { border-left: 4px solid var(--red); background: var(--red-light); border-radius: 0 8px 8px 0; padding: 12px 14px; margin-bottom: 10px; }
+  .alert-card.resolved { border-color: var(--green); background: var(--green-light); }
+  .alert-card.hijacker { border-color: #7c3aed; background: #f5f3ff; }
+  .alert-date { font-size: 11px; font-weight: 700; color: var(--gray); margin-bottom: 4px; }
+  .alert-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .alert-detail { font-size: 12px; color: #475569; }
+  .alert-mkt { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 3px; background: var(--brand); color: white; margin-left: 6px; vertical-align: middle; }
+
+  /* INTERNAL-ONLY ELEMENTS */
+  .internal-only { }
+  .client-mode .internal-only { display: none !important; }
+  .client-mode .notes-col { display: none; }
+  .client-badge { display: none; }
+  .client-mode .client-badge { display: inline-block; background: var(--brand2); color: var(--brand); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 4px; margin-left: 10px; }
+
+  /* ASIN LINK */
+  .asin-link { color: var(--blue); text-decoration: none; font-family: monospace; font-size: 12px; }
+  .asin-link:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 20px; color: var(--gray); font-size: 11px; }
+
+  /* TABS */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .kpi-row { padding: 12px 14px 0; }
+    .section { margin: 12px 14px; }
+    .controls { padding: 10px 14px; }
+    .header { padding: 12px 14px; }
+    th, td { padding: 8px; }
+  }
+
+  /* PRINT / CLIENT WATERMARK */
+  .watermark { display: none; }
+  .client-mode .watermark { display: block; text-align: center; font-size: 11px; color: #94a3b8; padding: 4px; letter-spacing: 1px; }
+
+  .no-data { text-align: center; padding: 30px; color: var(--gray); font-style: italic; }
+  .price-change-up { color: var(--red); font-size: 11px; }
+  .price-change-down { color: var(--green); font-size: 11px; }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">KSESTOR</div>
+    <div>
+      <div class="header-title">Buy Box &amp; Pricing Monitor</div>
+      <div style="font-size:11px;opacity:.6;">Amazon US &amp; Canada — Private Dashboard</div>
+    </div>
+    <span class="client-badge">CLIENT VIEW</span>
+  </div>
+  <div class="view-toggle">
+    <button class="active" onclick="setView('internal')" id="btn-internal">🔒 Internal</button>
+    <button onclick="setView('client')" id="btn-client">👤 Client View</button>
+  </div>
+</div>
+
+<!-- ALERT BANNER -->
+<div class="alert-banner" id="globalAlert">
+  🚨 ACTIVE ALERT: Buy Box LOST on Amazon CA — 160ml Glass Cup Set (B0F8P4R6SJ) — Hijacker: Layger @ CA$60.20
+</div>
+
+<!-- CONTROLS BAR -->
+<div class="controls">
+  <div style="display:flex;align-items:center;gap:8px;">
+    <label>Marketplace</label>
+    <button class="mkt-tab active" onclick="setMarket('US')" id="mkt-us">🇺🇸 Amazon US</button>
+    <button class="mkt-tab" onclick="setMarket('CA')" id="mkt-ca">🇨🇦 Amazon CA</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-left:10px;">
+    <label>Date</label>
+    <select id="dateSelector" onchange="onDateChange()">
+      <option value="2026-04-21" selected>April 21, 2026 (Latest)</option>
+      <option value="2026-04-15">April 15, 2026</option>
+      <option value="2026-04-14">April 14, 2026</option>
+    </select>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <label>View</label>
+    <button class="mkt-tab active" onclick="setTab('monitor')" id="tab-monitor" style="border-radius:6px;">📊 Monitor</button>
+    <button class="mkt-tab" onclick="setTab('history')" id="tab-history" style="border-radius:6px;">📅 Weekly History</button>
+    <button class="mkt-tab internal-only" onclick="setTab('alerts')" id="tab-alerts" style="border-radius:6px;">🚨 Alerts Log</button>
+  </div>
+</div>
+
+<!-- =================== MONITOR TAB =================== -->
+<div id="tab-monitor-content" class="tab-content active">
+
+  <!-- KPI CARDS -->
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <!-- MAIN TABLE -->
+  <div class="section" style="margin-top:16px;">
+    <div class="section-header">
+      <div class="section-title" id="tableTitle">🇺🇸 Amazon US — Buy Box Monitor</div>
+      <div class="section-meta" id="tableMeta"></div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table id="mainTable">
+        <thead>
+          <tr id="tableHead"></tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ACTION ITEMS (internal only) -->
+  <div class="section internal-only" id="actionSection">
+    <div class="section-header">
+      <div class="section-title">⚡ Action Items &amp; Recommendations</div>
+      <div class="section-meta" id="actionMeta"></div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Priority</th>
+            <th>Product / ASIN</th>
+            <th>Action Required</th>
+            <th>Marketplace</th>
+          </tr>
+        </thead>
+        <tbody id="actionBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /monitor tab -->
+
+<!-- =================== HISTORY TAB =================== -->
+<div id="tab-history-content" class="tab-content">
+  <div class="section" style="margin-top:16px;">
+    <div class="section-header">
+      <div class="section-title">📅 Weekly Buy Box History — All Products</div>
+      <div class="section-meta">Compare status across all monitored weeks</div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table id="historyTable">
+        <thead id="historyHead"></thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- =================== ALERTS LOG TAB (internal only) =================== -->
+<div id="tab-alerts-content" class="tab-content internal-only">
+  <div class="kpi-row">
+    <div class="kpi lost"><div class="kpi-label">Total BB Lost Events</div><div class="kpi-value" id="alertKpiLost">0</div><div class="kpi-sub">Across all weeks</div></div>
+    <div class="kpi" style="border-color:#a78bfa;"><div class="kpi-label">Hijacker Events</div><div class="kpi-value" style="color:#7c3aed;" id="alertKpiHijack">0</div><div class="kpi-sub">Unauthorized sellers detected</div></div>
+    <div class="kpi won"><div class="kpi-label">Resolved Events</div><div class="kpi-value" id="alertKpiResolved">0</div><div class="kpi-sub">Issues cleared in later check</div></div>
+  </div>
+  <div class="section" style="margin-top:16px;">
+    <div class="section-header">
+      <div class="section-title">🚨 Buy Box Lost &amp; Hijacker Alert Log</div>
+      <div class="section-meta">Chronological history of all incidents</div>
+    </div>
+    <div id="alertsLog" style="padding:16px;"></div>
+  </div>
+</div>
+
+<div class="watermark">KSESTOR — CONFIDENTIAL CLIENT REPORT — FOR AUTHORIZED VIEWING ONLY</div>
+<div class="footer">KSESTOR Buy Box Monitor · Generated <span id="genDate"></span> · Managed by Cristine</div>
+
+</div><!-- /app -->
+
+<script>
+// ============================================================
+// DATA — Parsed from all 3 Excel files
+// ============================================================
+const DATA = {
+  "2026-04-21": {
+    label: "April 21, 2026",
+    US: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$31.99", bbPrice:"$31.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Price reduced from $39.99 → $31.99. Sole seller. Ships via Amazon FBA." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"$79.99", bbPrice:"$79.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"No competing sellers visible today. Monitor weekly." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"$35.99", bbPrice:"$35.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Price updated to $35.99. No competing sellers visible today." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Spigot for Bev. Dispenser", asin:"B0F2GHXS1P", ourPrice:"$8.99", bbPrice:"$8.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"$21.99", bbPrice:"$21.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Silicone Ice Cube Tray", asin:"B0F3K2PTCD", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+      ],
+      summary: { won:13, watch:0, lost:0 },
+      actions: [
+        { priority:"🔴 HIGH", product:"Drawer (Pod Holder)\nB09FMVDZ1W", action:"US price dropped from $39.99 → $31.99 (−$8). Confirm this was intentional repricing. If not, restore to $39.99 immediately. Monitor margin impact.", marketplace:"US" },
+        { priority:"🟡 MED", product:"Champagne Tower Clear\nB0DLLMHSCH", action:"Price now $35.99 (was $34.99). No competing sellers — previous 6-seller concern resolved. Confirm accuracy. Keep monitoring pre-events season.", marketplace:"US" },
+        { priority:"🟢 LOW", product:"All other US Products", action:"All 11 remaining US products: Buy Box fully held by Ksestor with FBA fulfillment. No immediate action required.", marketplace:"US" },
+      ]
+    },
+    CA: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Sole seller. Ships from Amazon FBA." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"CA$79.99", bbPrice:"CA$79.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Sole seller. Ships from Amazon FBA." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"No competing sellers visible today." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"CA$24.99", bbPrice:"CA$24.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Sole seller. Ships from Amazon FBA." },
+        { product:"Champagne Tower (Clear/Pink)", asin:"B0GQ58C6XX", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Now showing Pink variant on CA. Verify ASIN mapping for Clear version." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Sole seller. Ships from Amazon FBA." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"CA$19.99", bbPrice:"CA$60.20", bbWinner:"Layger", otherSellers:1, status:"LOST", notes:"🚨 BUY BOX LOST to 'Layger' at CA$60.20 (price gouging). ACTION: Report hijacker, check listing, reprice or enroll Brand Registry protection. Send C&D notice." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"CA$19.99", bbPrice:"CA$19.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Sole seller. Ships from Amazon FBA." },
+      ],
+      summary: { won:7, watch:0, lost:1 },
+      actions: [
+        { priority:"🔴 URGENT", product:"160ml Glass Cup Set\nB0F8P4R6SJ", action:"BUY BOX LOST on Amazon CA to 'Layger' at CA$60.20 — price gouger/hijacker. Actions: (1) Check Seller Central CA for suppression. (2) Report via Brand Registry. (3) Ensure FBA stock on CA. (4) Send C&D notice. (5) Contact Seller Support if BB incorrectly assigned.", marketplace:"CA" },
+        { priority:"🟡 MED", product:"Champagne Tower Clear CA\nB0GQ58C6XX", action:"ASIN B0GQ58C6XX on CA showing as Pink variant. Confirm correct ASIN mapping for Clear Champagne Tower on CA. Update product link file if needed.", marketplace:"CA" },
+        { priority:"🟢 LOW", product:"Cocktail Tree Stand\nB0CYDHK3DS", action:"Previously had 6 competing US sellers — none visible today. CA concern also resolved. Continue weekly monitoring.", marketplace:"US + CA" },
+      ]
+    }
+  },
+  "2026-04-15": {
+    label: "April 15, 2026",
+    US: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$39.99", bbPrice:"$39.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"$79.99", bbPrice:"$79.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:6, status:"WATCH", notes:"6 other sellers active (new+used from $27.99). Buy Box held — monitor pricing gap." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:6, status:"WATCH", notes:"6 other sellers active (used from $24.49). Buy Box held — watch for undercutting." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Spigot for Bev. Dispenser", asin:"B0F2GHXS1P", ourPrice:"$8.99", bbPrice:"$8.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"$21.99", bbPrice:"$21.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+        { product:"Silicone Ice Cube Tray", asin:"B0F3K2PTCD", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ships via Amazon FBA." },
+      ],
+      summary: { won:11, watch:2, lost:0 },
+      actions: []
+    },
+    CA: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:2, status:"WON", notes:"2 other sellers also at CA$29.99. Ships from Amazon. Monitor competitors." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"CA$79.99", bbPrice:"CA$79.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:0, status:"WON", notes:"Sole seller. Ships from Amazon FBA." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:3, status:"WATCH", notes:"3 sellers (used from CA$28.49 - Warehouse Deals). Buy Box held — watch used undercut." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"CA$24.99", bbPrice:"CA$24.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:2, status:"WON", notes:"2 other sellers at CA$24.99. Ships from Amazon FBA." },
+        { product:"Champagne Tower (Clear)", asin:"B0GQ58C6XX", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:2, status:"WATCH", notes:"Listing redirects to B0DYF7X18K on CA. 2 sellers from CA$25.49. Verify ASIN mapping." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:2, status:"WATCH", notes:"2 sellers (used from CA$25.49 - Warehouse Deals). Buy Box held — monitor." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"NOLINK", notes:"No Amazon CA link in product file. Confirm if listed on CA marketplace." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"CA$19.99", bbPrice:"CA$19.99", bbWinner:"K-Store, LLC (Ksestor)", otherSellers:2, status:"WON", notes:"2 other sellers at CA$19.99. Ships from Amazon FBA." },
+      ],
+      summary: { won:4, watch:3, lost:0 },
+      actions: []
+    }
+  },
+  "2026-04-14": {
+    label: "April 14, 2026",
+    US: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$39.99", bbPrice:"$39.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. No competing new sellers." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"$79.99", bbPrice:"$79.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. No competing new sellers." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:6, status:"WON", notes:"6 other sellers (new+used from $27.99). Monitor closely." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:6, status:"WON", notes:"6 other sellers (used from $24.49). Monitor closely." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"Spigot for Bev Dispenser", asin:"B0F2GHXS1P", ourPrice:"$8.99", bbPrice:"$8.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"$21.99", bbPrice:"$21.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+        { product:"Silicone Ice Cube Tray", asin:"B0F3K2PTCD", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Ships from Amazon. Sole seller." },
+      ],
+      summary: { won:13, watch:0, lost:0 },
+      actions: []
+    },
+    CA: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"N/A", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. 2 new sellers. Ksestor not visible.", hijacker:"K-Store, LLC" },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"N/A", bbPrice:"CA$79.99", bbWinner:"K-Store, LLC", otherSellers:0, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. No other competing sellers.", hijacker:"K-Store, LLC" },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"N/A", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:3, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. 3 sellers (used from CA$28.49 - Warehouse Deals).", hijacker:"K-Store, LLC" },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"N/A", bbPrice:"CA$24.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. 2 new sellers from CA$24.99.", hijacker:"K-Store, LLC" },
+        { product:"Champagne Tower (Clear)", asin:"B0GQ58C6XX", ourPrice:"N/A", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. Redirects to B0DYF7X18K. 2 sellers from CA$25.49.", hijacker:"K-Store, LLC" },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"N/A", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. 2 sellers (used from CA$25.49 - Warehouse Deals).", hijacker:"K-Store, LLC" },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"NOLINK", notes:"No Amazon CA listing found in product file." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"N/A", bbPrice:"CA$19.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"LOST", notes:"HIJACKER: K-Store LLC holds BB. 2 new sellers from CA$19.99.", hijacker:"K-Store, LLC" },
+      ],
+      summary: { won:0, watch:0, lost:7 },
+      actions: []
+    }
+  }
+};
+
+// Alerts log (built from data)
+const ALERTS = [
+  { date:"2026-04-21", type:"lost", market:"CA", asin:"B0F8P4R6SJ", product:"160ml Glass Cup Set (5oz x4)", detail:"Buy Box LOST to 'Layger' at CA$60.20 (price gouging). Ksestor price: CA$19.99.", hijacker:"Layger", resolved:false },
+  { date:"2026-04-15", type:"watch", market:"US", asin:"B0CYDHK3DS", product:"Cocktail Tree Stand", detail:"6 competing sellers active (from $27.99). Buy Box held but at risk.", hijacker:null, resolved:true },
+  { date:"2026-04-15", type:"watch", market:"US", asin:"B0DLLMHSCH", product:"Champagne Tower (Clear)", detail:"6 competing sellers active (used from $24.49). Buy Box held.", hijacker:null, resolved:true },
+  { date:"2026-04-15", type:"watch", market:"CA", asin:"B0CYDHK3DS", product:"Cocktail Tree Stand CA", detail:"3 sellers (used from CA$28.49). Buy Box held.", hijacker:null, resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B09FMVDZ1W", product:"Drawer (Pod Holder)", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. Ksestor not visible on CA.", hijacker:"K-Store, LLC", resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B0CK9L7CGF", product:"Beverage Dispenser", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. Ksestor not visible on CA.", hijacker:"K-Store, LLC", resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B0CYDHK3DS", product:"Cocktail Tree Stand", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. 3 sellers visible.", hijacker:"K-Store, LLC", resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B0CBLBK32X", product:"Flight Board", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. 2 new sellers.", hijacker:"K-Store, LLC", resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B0GQ58C6XX", product:"Champagne Tower (Clear)", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. Listing redirects to B0DYF7X18K.", hijacker:"K-Store, LLC", resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B0DYF7X18K", product:"Champagne Tower (Pink)", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. 2 sellers (Warehouse Deals).", hijacker:"K-Store, LLC", resolved:true },
+  { date:"2026-04-14", type:"hijacker", market:"CA", asin:"B0F8P35KT5", product:"200ml Beer Glass Set (7oz x4)", detail:"Buy Box LOST to hijacker 'K-Store, LLC'. 2 new sellers.", hijacker:"K-Store, LLC", resolved:true },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let currentView = 'internal';
+let currentMarket = 'US';
+let currentDate = '2026-04-21';
+let currentTab = 'monitor';
+
+// ============================================================
+// HELPERS
+// ============================================================
+function statusBadge(status) {
+  if (status === 'WON') return '<span class="badge badge-won">✅ WON</span>';
+  if (status === 'LOST') return '<span class="badge badge-lost">🔴 LOST</span>';
+  if (status === 'WATCH') return '<span class="badge badge-watch">⚠️ WATCH</span>';
+  return '<span class="badge badge-nolink">⚠️ NO LINK</span>';
+}
+function statusPill(status) {
+  if (status === 'WON') return '<span class="history-pill pill-won">✅ WON</span>';
+  if (status === 'LOST') return '<span class="history-pill pill-lost">🔴 LOST</span>';
+  if (status === 'WATCH') return '<span class="history-pill pill-watch">⚠️ WATCH</span>';
+  return '<span class="history-pill pill-nolink">—</span>';
+}
+function asinLink(asin, market) {
+  const base = market === 'CA' ? 'https://www.amazon.ca/dp/' : 'https://www.amazon.com/dp/';
+  const cleanAsin = asin.trim();
+  return `<a class="asin-link" href="${base}${cleanAsin}" target="_blank">${cleanAsin}</a>`;
+}
+
+// ============================================================
+// VIEW FUNCTIONS
+// ============================================================
+function setView(v) {
+  currentView = v;
+  const app = document.getElementById('app');
+  document.getElementById('btn-internal').classList.toggle('active', v === 'internal');
+  document.getElementById('btn-client').classList.toggle('active', v === 'client');
+  if (v === 'client') {
+    app.classList.add('client-mode');
+    // if on alerts tab, switch to monitor
+    if (currentTab === 'alerts') setTab('monitor');
+  } else {
+    app.classList.remove('client-mode');
+  }
+}
+
+function setMarket(m) {
+  currentMarket = m;
+  document.getElementById('mkt-us').classList.toggle('active', m === 'US');
+  document.getElementById('mkt-ca').classList.toggle('active', m === 'CA');
+  renderAll();
+}
+
+function onDateChange() {
+  currentDate = document.getElementById('dateSelector').value;
+  renderAll();
+}
+
+function setTab(t) {
+  currentTab = t;
+  ['monitor','history','alerts'].forEach(tab => {
+    document.getElementById(`tab-${tab}-content`).classList.toggle('active', tab === t);
+    const btn = document.getElementById(`tab-${tab}`);
+    if (btn) btn.classList.toggle('active', tab === t);
+  });
+  if (t === 'history') renderHistory();
+  if (t === 'alerts') renderAlerts();
+}
+
+// ============================================================
+// RENDER KPIs
+// ============================================================
+function renderKPIs(data) {
+  const s = data.summary;
+  const total = (data.products || []).length;
+  document.getElementById('kpiRow').innerHTML = `
+    <div class="kpi total"><div class="kpi-label">Total Products</div><div class="kpi-value">${total}</div><div class="kpi-sub">Monitored this check</div></div>
+    <div class="kpi won"><div class="kpi-label">✅ Buy Box WON</div><div class="kpi-value">${s.won}</div><div class="kpi-sub">Ksestor holds BB</div></div>
+    <div class="kpi watch"><div class="kpi-label">⚠️ WATCH</div><div class="kpi-value">${s.watch}</div><div class="kpi-sub">BB held, competitors active</div></div>
+    <div class="kpi lost"><div class="kpi-label">🔴 BB LOST</div><div class="kpi-value">${s.lost}</div><div class="kpi-sub">${s.lost > 0 ? 'URGENT — action required' : 'No losses this check'}</div></div>
+  `;
+}
+
+// ============================================================
+// RENDER MAIN TABLE
+// ============================================================
+function renderTable(data) {
+  const d = DATA[currentDate];
+  const mktLabel = currentMarket === 'US' ? '🇺🇸 Amazon US' : '🇨🇦 Amazon CA';
+  document.getElementById('tableTitle').textContent = `${mktLabel} — Buy Box Monitor`;
+  document.getElementById('tableMeta').textContent = `Checked: ${d.label}`;
+  document.getElementById('actionMeta').textContent = `As of ${d.label}`;
+
+  // Head
+  document.getElementById('tableHead').innerHTML = `
+    <th>#</th>
+    <th>Product</th>
+    <th>ASIN</th>
+    <th>Our Price</th>
+    <th>BB Price</th>
+    <th>BB Winner</th>
+    <th>Other Sellers</th>
+    <th>Status</th>
+    <th class="notes-col internal-only">Notes / Action</th>
+  `;
+
+  // Body
+  const rows = (data.products || []).map((p, i) => `
+    <tr>
+      <td style="color:var(--gray);font-size:12px;">${i+1}</td>
+      <td style="font-weight:600;">${p.product}</td>
+      <td>${asinLink(p.asin, currentMarket)}</td>
+      <td>${p.ourPrice}</td>
+      <td style="font-weight:600;">${p.bbPrice}</td>
+      <td style="font-size:12px;color:${p.bbWinner === 'Ksestor' || p.bbWinner.includes('K-Store') ? 'var(--green)' : 'var(--red)'};">${p.bbWinner}</td>
+      <td style="text-align:center;">${p.otherSellers > 0 ? `<span style="color:var(--yellow);font-weight:700;">${p.otherSellers}</span>` : '<span style="color:var(--gray);">0</span>'}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td class="notes-col internal-only" style="font-size:12px;color:#475569;max-width:280px;">${p.notes}</td>
+    </tr>
+  `).join('');
+  document.getElementById('tableBody').innerHTML = rows;
+
+  // Action items
+  const actions = (data.actions || []);
+  if (actions.length === 0) {
+    document.getElementById('actionBody').innerHTML = '<tr><td colspan="4" class="no-data">No action items for this check date.</td></tr>';
+  } else {
+    document.getElementById('actionBody').innerHTML = actions.map(a => `
+      <tr>
+        <td style="font-size:13px;white-space:nowrap;">${a.priority}</td>
+        <td style="font-size:12px;font-family:monospace;color:var(--brand);">${a.product.replace('\n','<br>')}</td>
+        <td style="font-size:12px;max-width:360px;">${a.action}</td>
+        <td><span class="badge" style="background:var(--blue-light);color:var(--blue);border-color:var(--blue-border);">${a.marketplace}</span></td>
+      </tr>
+    `).join('');
+  }
+}
+
+// ============================================================
+// RENDER HISTORY
+// ============================================================
+function renderHistory() {
+  const dates = Object.keys(DATA).sort().reverse();
+  const mkt = currentMarket;
+
+  // Collect all unique products across all dates
+  const allProducts = {};
+  dates.forEach(dt => {
+    (DATA[dt][mkt].products || []).forEach(p => {
+      if (!allProducts[p.asin]) allProducts[p.asin] = p.product;
+    });
+  });
+
+  // Build header
+  document.getElementById('historyHead').innerHTML = `
+    <tr>
+      <th>Product</th>
+      <th>ASIN</th>
+      ${dates.map(dt => `<th style="text-align:center;">${DATA[dt].label.replace(', 2026','')}</th>`).join('')}
+    </tr>
+  `;
+
+  // Build body
+  const rows = Object.entries(allProducts).map(([asin, product]) => {
+    const cells = dates.map(dt => {
+      const found = (DATA[dt][mkt].products || []).find(p => p.asin === asin);
+      return `<td style="text-align:center;">${found ? statusPill(found.status) : '<span style="color:#cbd5e1;">—</span>'}</td>`;
+    }).join('');
+    return `<tr>
+      <td style="font-weight:500;">${product}</td>
+      <td>${asinLink(asin, mkt)}</td>
+      ${cells}
+    </tr>`;
+  }).join('');
+
+  document.getElementById('historyBody').innerHTML = rows || '<tr><td colspan="10" class="no-data">No history data found.</td></tr>';
+}
+
+// ============================================================
+// RENDER ALERTS LOG
+// ============================================================
+function renderAlerts() {
+  const lost = ALERTS.filter(a => a.type === 'lost' || a.type === 'hijacker').length;
+  const hijack = ALERTS.filter(a => a.type === 'hijacker').length;
+  const resolved = ALERTS.filter(a => a.resolved).length;
+  document.getElementById('alertKpiLost').textContent = lost;
+  document.getElementById('alertKpiHijack').textContent = hijack;
+  document.getElementById('alertKpiResolved').textContent = resolved;
+
+  const html = ALERTS.map(a => {
+    let cls = 'alert-card';
+    if (a.resolved) cls += ' resolved';
+    if (a.type === 'hijacker') cls += ' hijacker';
+    const icon = a.type === 'hijacker' ? '🏴‍☠️' : a.type === 'lost' ? '🔴' : '⚠️';
+    const resolvedTag = a.resolved ? '<span style="background:var(--green);color:white;font-size:10px;font-weight:700;padding:1px 7px;border-radius:3px;margin-left:6px;">RESOLVED</span>' : '<span style="background:var(--red);color:white;font-size:10px;font-weight:700;padding:1px 7px;border-radius:3px;margin-left:6px;">ACTIVE</span>';
+    return `
+      <div class="${cls}">
+        <div class="alert-date">${a.date} <span class="alert-mkt">${a.market}</span> ${resolvedTag}</div>
+        <div class="alert-title">${icon} ${a.product} — <span style="font-family:monospace;font-size:12px;">${a.asin}</span></div>
+        <div class="alert-detail">${a.detail}${a.hijacker ? `<br><strong>Unauthorized Seller:</strong> ${a.hijacker}` : ''}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('alertsLog').innerHTML = html || '<div class="no-data">No alerts recorded.</div>';
+}
+
+// ============================================================
+// MAIN RENDER
+// ============================================================
+function renderAll() {
+  const d = DATA[currentDate];
+  const mktData = d[currentMarket];
+  renderKPIs(mktData);
+  renderTable(mktData);
+  if (currentTab === 'history') renderHistory();
+  if (currentTab === 'alerts') renderAlerts();
+
+  // Alert banner — show if any LOST in latest date
+  const hasActiveLost = Object.values(DATA).some(dd =>
+    (dd.CA.products || []).some(p => p.status === 'LOST' && !p.resolved) ||
+    (dd.US.products || []).some(p => p.status === 'LOST' && !p.resolved)
+  );
+  document.getElementById('globalAlert').classList.toggle('hidden', false);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.getElementById('genDate').textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+renderAll();
+</script>
+</body>
+</html>

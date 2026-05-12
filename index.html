@@ -111,7 +111,8 @@
   <div style="display:flex;align-items:center;gap:8px;margin-left:10px;">
     <label>Date</label>
     <select id="dateSelector" onchange="onDateChange()">
-      <option value="2026-05-11" selected>May 11, 2026 (Latest)</option>
+      <option value="2026-05-12" selected>May 12, 2026 (Latest)</option>
+      <option value="2026-05-11">May 11, 2026</option>
       <option value="2026-05-05">May 5, 2026</option>
       <option value="2026-04-28">April 28, 2026</option>
       <option value="2026-04-21">April 21, 2026</option>
@@ -188,6 +189,71 @@
 
 <script>
 const DATA = {
+    "2026-05-12": {
+    label: "May 12, 2026",
+    US: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$34.78", bbPrice:"$34.78", bbWinner:"Ksestor", otherSellers:2, status:"WATCH", notes:"Ksestor holds Buy Box. 2 other sellers from $30.09 incl. Amazon Resale used. Monitor." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"$79.99", bbPrice:"$79.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"$36.99", bbPrice:"$36.99", bbWinner:"Ksestor", otherSellers:7, status:"WATCH", notes:"Ksestor holds Buy Box. 7 other offers from $27.79 (used). Monitor for unauthorized new sellers." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"$36.97", bbPrice:"$36.97", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"$32.99", bbPrice:"$32.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"$29.99", bbPrice:"$29.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Amazon\u2019s Choice. Sole seller. Ksestor holds Buy Box." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:6, status:"WATCH", notes:"Ksestor holds Buy Box. 6 other sellers from $27.99. Monitor closely." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"$31.99", bbPrice:"$31.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"Spigot for Bev. Dispenser", asin:"B0F2GHXS1P", ourPrice:"$8.99", bbPrice:"$8.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Amazon\u2019s Choice. Sole seller. Ksestor holds Buy Box." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"$20.97", bbPrice:"$20.97", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"$22.98", bbPrice:"$22.98", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Sole seller. Ksestor holds Buy Box." },
+        { product:"Silicone Ice Cube Tray", asin:"B0F3K2PTCD", ourPrice:"$14.99", bbPrice:"$14.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Amazon\u2019s Choice. Sole seller. Ksestor holds Buy Box." }
+      ],
+      summary: { won:10, watch:3, lost:0 },
+      actions: [
+        { priority:"\uD83D\uDFE1 HIGH", product:"Cocktail Tree Stand (B0CYDHK3DS)", action:"7 other offers from $27.79 (used). Verify all sellers. Send C&D to any unauthorized resellers.", marketplace:"US" },
+        { priority:"\uD83D\uDFE1 HIGH", product:"Champagne Tower Clear (B0DLLMHSCH)", action:"6 other sellers from $27.99. Monitor for unauthorized new sellers undercutting Ksestor price.", marketplace:"US" },
+        { priority:"\uD83D\uDFE1 MED", product:"Drawer (B09FMVDZ1W)", action:"2 other sellers from $30.09 incl. Amazon Resale used. Monitor for new unauthorized sellers.", marketplace:"US" }
+      ]
+    },
+    CA: {
+      products: [
+        { product:"Drawer", asin:"B09FMVDZ1W", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"WATCH", notes:"K-Store, LLC holds Buy Box. 2 other new sellers present. Monitor." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"\uD83D\uDD34 CURRENTLY UNAVAILABLE on Amazon CA. Listing may be suppressed or deactivated. Urgent action required." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"CA$31.99", bbPrice:"CA$31.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"WATCH", notes:"K-Store, LLC holds Buy Box. 2 other sellers present. Monitor." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"CA$24.99", bbPrice:"CA$24.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"WATCH", notes:"K-Store, LLC holds Buy Box. 2 other sellers present. Monitor." },
+        { product:"Champagne Tower (Clear)", asin:"B0GQ58C6XX", ourPrice:"N/A", bbPrice:"Used: CA$37.50", bbWinner:"Warehouse Deals", otherSellers:0, status:"LOST", notes:"\uD83D\uDD34 No new Buy Box. Only Warehouse Deals used listing (CA$37.50). Possible suppression or listing issue." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:3, status:"WATCH", notes:"K-Store, LLC holds Buy Box. 3 sellers; Warehouse Deals used at CA$24.56. Monitor." },
+        { product:"160ml Glass Cup Set", asin:"B0F8P4R6SJ", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"NOLINK", notes:"No Amazon CA listing for this ASIN." },
+        { product:"200ml Beer Glass Set", asin:"B0F8P35KT5", ourPrice:"CA$19.99", bbPrice:"CA$19.99", bbWinner:"K-Store, LLC", otherSellers:2, status:"WATCH", notes:"K-Store, LLC holds Buy Box. -20% promo running (was CA$24.99). 2 other new sellers." }
+      ],
+      summary: { won:0, watch:4, lost:2 },
+      actions: [
+        { priority:"\uD83D\uDD34 URGENT", product:"Beverage Dispenser CA (B0CK9L7CGF)", action:"CURRENTLY UNAVAILABLE on Amazon CA. Check Seller Central immediately — listing may be suppressed/deactivated. Relist or investigate root cause urgently.", marketplace:"CA" },
+        { priority:"\uD83D\uDD34 URGENT", product:"Champagne Tower Clear CA (B0GQ58C6XX)", action:"No new Buy Box — only Warehouse Deals used listing. Possible listing suppression. Investigate and relist/reprice immediately.", marketplace:"CA" },
+        { priority:"\uD83D\uDFE1 MED", product:"Drawer / Cocktail Tree / Flight Board / Beer Glass (CA)", action:"Multiple other sellers present (2-3 per listing). Verify all are authorized. Monitor for price undercutting.", marketplace:"CA" },
+        { priority:"\uD83D\uDFE1 MED", product:"Champagne Tower Pink CA (B0DYF7X18K)", action:"Warehouse Deals used at CA$24.56 listed alongside K-Store LLC. Monitor — escalate if Warehouse Deals wins Buy Box.", marketplace:"CA" }
+      ]
+    },
+    UK: {
+      products: [
+        { product:"Drawer", asin:"B09FMVDZ1W", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers. Listing exists but Buy Box inactive." },
+        { product:"Spigot (Bev. Dispenser)", asin:"B0F2GHXS1P", ourPrice:"\u00A314.83", bbPrice:"\u00A314.83", bbWinner:"Amazon US", otherSellers:0, status:"WATCH", notes:"Active via US import/cross-border. Sold by Amazon US. No direct UK Hostwithksestor seller shown." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"\u00A335.19", bbPrice:"\u00A335.19", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"\u2705 Active Buy Box confirmed. Add to Basket active. Only UK product with confirmed active UK Buy Box." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"N/A", otherSellers:0, status:"LOST", notes:"No featured offers. Cannot dispatch to UK buyers." },
+        { product:"160ml Glass Cup Set", asin:"B0F8P4R6SJ", ourPrice:"\u00A326.26", bbPrice:"\u00A326.26", bbWinner:"Amazon US", otherSellers:0, status:"WATCH", notes:"Active via US import/cross-border. Sold by Amazon US. No direct UK seller shown." },
+        { product:"200ml Beer Glass Set", asin:"B0F8P35KT5", ourPrice:"\u00A328.40", bbPrice:"\u00A328.40", bbWinner:"Amazon US", otherSellers:0, status:"WATCH", notes:"Active via US import/cross-border. Sold by Amazon US. No direct UK seller shown." }
+      ],
+      summary: { won:1, watch:3, lost:7 },
+      actions: [
+        { priority:"\uD83D\uDD34 HIGH", product:"7 UK ASINs (Drawer, Cocktail Tree, Flight Board, Dust Covers, Champagne Towers)", action:"No featured offers on 7 of 11 UK listings — Buy Box effectively LOST. Check UK FBA inventory levels in Seller Central. Replenish if OOS.", marketplace:"UK" },
+        { priority:"\uD83D\uDFE1 MED", product:"Spigot / 160ml Glass / 200ml Beer Glass (UK)", action:"These 3 ASINs active only via Amazon US cross-border imports. Consider setting up direct UK FBA inventory for better Buy Box control.", marketplace:"UK" }
+      ]
+    }
+  },
     "2026-05-11": {
     label: "May 11, 2026",
     US: {
@@ -531,6 +597,10 @@ const DATA = {
 };
 
 const ALERTS = [
+  { date:"2026-05-12", type:"lost", market:"CA", asin:"B0CK9L7CGF", product:"Beverage Dispenser — CA", detail:"🔴 CURRENTLY UNAVAILABLE on Amazon CA. Listing appears suppressed or deactivated. No active Buy Box. Buyers cannot purchase. Immediate action required in Seller Central CA.", hijacker:false },
+  { date:"2026-05-12", type:"lost", market:"CA", asin:"B0GQ58C6XX", product:"Champagne Tower (Clear) — CA", detail:"🔴 No new Buy Box — only Warehouse Deals used listing (CA$37.50). Possible listing suppression. K-Store LLC not winning Buy Box. Investigate and relist/reprice immediately.", hijacker:false },
+  { date:"2026-05-12", type:"lost", market:"UK", asin:"Multiple", product:"7 UK ASINs — Drawer, Cocktail Tree, Flight Board, Dust Cover Black, Dust Cover Gray, Champagne Tower Clear, Champagne Tower Pink", detail:"7 of 11 UK listings show 'No featured offers available.' Buy Box effectively LOST. Likely OOS in UK FBA. Check UK inventory in Seller Central and replenish.", hijacker:false },
+  
   { date:"2026-05-11", type:"lost", market:"CA", asin:"B0GQ58C6XX", product:"Champagne Tower (Clear) — CA", detail:"⚠️ Buy Box LOST to Warehouse Deals (Amazon resale) at CA$38.99. Ksestor is listed but not holding Buy Box. Warehouse Deals is Amazon\'s own resale arm — they may be reselling returned stock. Action: adjust pricing or submit removal request via Brand Registry.", hijacker:"Warehouse Deals", resolved:false },
   { date:"2026-05-11", type:"watch", market:"US", asin:"B0CYDHK3DS", product:"Cocktail Tree Stand — US", detail:"6 competing offers from $27.79. Ksestor holds Buy Box but significant undercutting risk. Verify all sellers — send C&D if unauthorized.", hijacker:null, resolved:false },
 
@@ -557,7 +627,7 @@ const ALERTS = [
 
 let currentView = 'internal';
 let currentMarket = 'US';
-let currentDate = '2026-05-11';
+let currentDate = '2026-05-12';
 let currentTab = 'monitor';
 
 function statusBadge(s) {

@@ -843,4 +843,8 @@ function renderAll() {
   if (currentTab==='alerts') renderAlerts();
 }
 
-document.getElementById('genDate').textContent = new Date().toLocaleDateString('en-US',{year:'numeric'
+document.getElementById('genDate').textContent = new Date().toLocaleDateString('en-US',{,month:'long',day:'numeric'});
+renderAll();
+</script>
+</body>
+</html>

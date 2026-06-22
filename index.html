@@ -97,8 +97,8 @@
   </div>
 </div>
 
-<div class="alert-banner hidden" id="globalAlert">
-  ✅ No urgent alerts — All Buy Boxes held by Ksestor as of June 10, 2026 (last known data). Verify CA 200ml Beer Glass Set manually.
+<div class="alert-banner" id="globalAlert">
+  🔴 URGENT (June 23, 2026): Buy Box LOST — CA Flight Board (B0CBLBK32X) & CA Glass Set (B0F8P4R6SJ) hijacked by "Layger" at CA$68.15; UK Champagne Towers (Clear & Pink) returning "Page Not Found" (suppressed). See Alerts Log.
 </div>
 
 <div class="controls">
@@ -111,7 +111,8 @@
   <div style="display:flex;align-items:center;gap:8px;margin-left:10px;">
     <label>Date</label>
     <select id="dateSelector" onchange="onDateChange()">
-      <option value="2026-06-10" selected>June 10, 2026 (Latest)</option>
+      <option value="2026-06-23" selected>June 23, 2026 (Latest)</option>
+      <option value="2026-06-10">June 10, 2026</option>
       <option value="2026-06-01">June 1, 2026</option>
       <option value="2026-05-26">May 26, 2026</option>
       <option value="2026-05-12">May 12, 2026</option>
@@ -192,6 +193,69 @@
 
 <script>
 const DATA = {
+    "2026-06-23": {
+    label: "June 23, 2026",
+    US: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$33.95", bbPrice:"$33.95", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"$79.99", bbPrice:"$79.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"$47.99", bbPrice:"$47.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live: $47.99, In Stock. Listing is Ksestor's. Price up vs last $34.99 - confirm intended." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"$32.99", bbPrice:"$32.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"$29.99", bbPrice:"$29.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. Price $34.99 (was $35.97)." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"$29.99", bbPrice:"$29.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. Price $29.99 (was $31.99)." },
+        { product:"Spigot for Bev. Dispenser", asin:"B0F2GHXS1P", ourPrice:"$79.99", bbPrice:"$79.99", bbWinner:"Ksestor", otherSellers:0, status:"WATCH", notes:"CATALOG ANOMALY: ASIN now resolves to the Beverage Dispenser listing ($79.99), not a standalone spigot. Verify spigot child ASIN in Seller Central - possible variation merge." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"$20.97", bbPrice:"$20.97", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live: listing confirmed Ksestor (Flight Glasses Set of 4). Seller block geo-collapsed; last-known Ksestor." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock." },
+        { product:"Silicone Ice Cube Tray", asin:"B0F3K2PTCD", ourPrice:"$14.99", bbPrice:"$14.99", bbWinner:"Ksestor", otherSellers:0, status:"WATCH", notes:"CATALOG ANOMALY: ASIN resolves to the Acrylic Drink Dispenser listing, not the Ice Cube Tray. Verify ASIN/listing mapping in Seller Central US." }
+      ],
+      summary: { won:11, watch:2, lost:0 },
+      actions: [
+        { priority:"MED", product:"Spigot\nB0F2GHXS1P", action:"Spigot ASIN resolves to Beverage Dispenser listing - verify child ASIN/variation in Seller Central US.", marketplace:"US" },
+        { priority:"MED", product:"Ice Cube Tray\nB0F3K2PTCD", action:"Ice Cube Tray ASIN resolves to Acrylic Drink Dispenser listing - verify ASIN/listing mapping in Seller Central US.", marketplace:"US" }
+      ]
+    },
+    CA: {
+      products: [
+        { product:"Drawer", asin:"B09FMVDZ1W", ourPrice:"CA$31.99", bbPrice:"CA$31.99", bbWinner:"K-Store, LLC", otherSellers:0, status:"WON", notes:"Live-verified: Sold by K-Store, LLC, In Stock." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"CA$54.79", bbPrice:"CA$54.79", bbWinner:"K-Store, LLC", otherSellers:0, status:"WON", notes:"Live: CA$54.79, In Stock. Seller block geo-collapsed; last-known K-Store, LLC. Price CA$54.79 (was CA$53.79)." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"CA$34.99", bbPrice:"CA$34.99", bbWinner:"K-Store, LLC", otherSellers:0, status:"WON", notes:"Live-verified: Sold by K-Store, LLC, In Stock." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"CA$62.99", bbPrice:"CA$68.15", bbWinner:"Layger", otherSellers:1, status:"LOST", notes:"*** URGENT HIJACKER *** ASIN on amazon.ca now displays as KSESTOR Flight Glasses Set of 4 with Buy Box held by UNAUTHORIZED seller Layger at CA$68.15. Possible variation hijack. File Amazon report + Brand Registry violation. Send C&D to Layger. (Layger previously hijacked B0F8P4R6SJ in April - recurrence.)" },
+        { product:"Champagne Tower (Clear)", asin:"B0GQ58C6XX", ourPrice:"CA$38.99", bbPrice:"N/A", bbWinner:"Could not verify", otherSellers:0, status:"WATCH", notes:"ASIN redirects on amazon.ca into the hijacked Flight Glasses cluster (Layger). Real Champagne Tower page unreachable. Verify variation integrity in Seller Central CA." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"CA$29.99", bbPrice:"CA$29.99", bbWinner:"K-Store, LLC", otherSellers:0, status:"WON", notes:"Live-verified: Sold by K-Store, LLC. Price CA$29.99 (was CA$54.89) - large drop, confirm intended." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"N/A", bbPrice:"CA$68.15", bbWinner:"Layger", otherSellers:1, status:"LOST", notes:"*** HIJACKER *** ASIN (was NOLINK for CA) now live showing KSESTOR Flight Glasses Set of 4, Buy Box held by UNAUTHORIZED Layger at CA$68.15. Same hijack cluster as B0CBLBK32X. Report + C&D to Layger." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"CA$19.99", bbPrice:"CA$19.99", bbWinner:"K-Store, LLC", otherSellers:0, status:"WATCH", notes:"Live-verified: Sold by K-Store, LLC BUT Only 2 left in stock - LOW STOCK, restock CA. Price CA$19.99 (was CA$29.99)." }
+      ],
+      summary: { won:4, watch:2, lost:2 },
+      actions: [
+        { priority:"\uD83D\uDD34 URGENT", product:"Flight Board CA\nB0CBLBK32X", action:"HIJACKER Layger holds Buy Box at CA$68.15. File Amazon hijacker/IP report via Brand Registry, send C&D, request variation cleanup.", marketplace:"CA" },
+        { priority:"\uD83D\uDD34 URGENT", product:"Glass Set CA\nB0F8P4R6SJ", action:"HIJACKER Layger holds Buy Box at CA$68.15 (same cluster). Report + C&D to Layger.", marketplace:"CA" },
+        { priority:"\uD83D\uDFE1 HIGH", product:"200ml Beer Glass Set CA\nB0F8P35KT5", action:"LOW STOCK: only 2 left. Create FBA restock/replenishment for CA.", marketplace:"CA" }
+      ]
+    },
+    UK: {
+      products: [
+        { product:"Drawer", asin:"B09FMVDZ1W", ourPrice:"\u00A325.99", bbPrice:"\u00A325.99", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: KSESTOR listing confirmed, In Stock. Seller geo-collapsed (PH); verify in Seller Central." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"\u00A321.52", bbPrice:"\u00A321.52", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: KSESTOR Drinks Dispenser 1.25 Gallon confirmed Ksestor. Seller geo-collapsed (PH)." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: KSESTOR Cocktail Tree Stand confirmed. Seller geo-collapsed (PH)." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: Ksestor Flight Board confirmed (NOT hijacked on UK - Layger issue is CA-only). Seller geo-collapsed (PH)." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"\u00A341.22", bbPrice:"\u00A341.22", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: Ksestor Dust Cover Black confirmed. Seller geo-collapsed (PH)." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: Ksestor Dust Cover Grey confirmed, In stock. Seller geo-collapsed (PH)." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"\u00A324.79", bbPrice:"\u00A324.79", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: KSESTOR Carousel confirmed, In stock. Seller geo-collapsed (PH)." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"\u00A344.11", bbPrice:"N/A", bbWinner:"\u2014", otherSellers:0, status:"LOST", notes:"*** URGENT *** ASIN returns Page Not Found on amazon.co.uk. Listing dead/suppressed. Check Seller Central UK and reinstate (hero product)." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"\u00A321.98", bbPrice:"N/A", bbWinner:"\u2014", otherSellers:0, status:"LOST", notes:"*** URGENT *** ASIN returns Page Not Found on amazon.co.uk. Listing dead/suppressed. Check Seller Central UK and reinstate." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"\u00A311.99", bbPrice:"\u00A311.99", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: Ksestor Flight Glasses Set of 4 confirmed, In stock. Seller geo-collapsed (PH)." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"\u00A312.99", bbPrice:"\u00A312.99", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live: Ksestor Beer Flight Glasses Set of 4 confirmed, In stock. Seller geo-collapsed (PH)." }
+      ],
+      summary: { won:9, watch:0, lost:2 },
+      actions: [
+        { priority:"\uD83D\uDD34 URGENT", product:"Champagne Tower Clear UK\nB0DLLMHSCH", action:"Listing returns Page Not Found - suppressed/dead. Reinstate via Seller Central UK ASAP.", marketplace:"UK" },
+        { priority:"\uD83D\uDD34 URGENT", product:"Champagne Tower Pink UK\nB0DYF7X18K", action:"Listing returns Page Not Found - suppressed/dead. Reinstate via Seller Central UK.", marketplace:"UK" }
+      ]
+    }
+  },
     "2026-06-10": {
     label: "June 10, 2026",
     US: {
@@ -774,6 +838,13 @@ const DATA = {
 };
 
 const ALERTS = [
+  { date:"2026-06-23", type:"hijacker", market:"CA", asin:"B0CBLBK32X", product:"Flight Board — CA", detail:"\uD83D\uDD34 BUY BOX LOST to UNAUTHORIZED seller Layger at CA$68.15. ASIN now displays as KSESTOR Flight Glasses Set of 4 - possible variation hijack/listing merge. Layger previously hijacked B0F8P4R6SJ in April (recurrence). File Amazon IP report via Brand Registry + send C&D.", hijacker:"Layger", resolved:false },
+  { date:"2026-06-23", type:"hijacker", market:"CA", asin:"B0F8P4R6SJ", product:"160ml Glass Cup Set — CA", detail:"\uD83D\uDD34 BUY BOX LOST to UNAUTHORIZED seller Layger at CA$68.15 (same hijack cluster as Flight Board). Report + C&D to Layger.", hijacker:"Layger", resolved:false },
+  { date:"2026-06-23", type:"lost", market:"UK", asin:"B0DLLMHSCH", product:"Champagne Tower (Clear) — UK", detail:"\uD83D\uDD34 Listing returns Page Not Found on amazon.co.uk - suppressed/dead. No Buy Box, buyers cannot purchase. Hero product. Reinstate via Seller Central UK ASAP.", hijacker:false, resolved:false },
+  { date:"2026-06-23", type:"lost", market:"UK", asin:"B0DYF7X18K", product:"Champagne Tower (Pink) — UK", detail:"\uD83D\uDD34 Listing returns Page Not Found on amazon.co.uk - suppressed/dead. Reinstate via Seller Central UK.", hijacker:false, resolved:false },
+  { date:"2026-06-23", type:"watch", market:"CA", asin:"B0F8P35KT5", product:"200ml Beer Glass Set — CA", detail:"LOW STOCK: Only 2 left in stock. Sold by K-Store, LLC (holds Buy Box). Create FBA restock for CA.", hijacker:null, resolved:false },
+  { date:"2026-06-23", type:"watch", market:"CA", asin:"B0GQ58C6XX", product:"Champagne Tower (Clear) — CA", detail:"ASIN redirects into the Layger Flight Glasses hijack cluster; real page unreachable. Verify variation integrity in Seller Central CA.", hijacker:null, resolved:false },
+  { date:"2026-06-23", type:"watch", market:"US", asin:"B0F2GHXS1P, B0F3K2PTCD", product:"Spigot & Ice Cube Tray — US", detail:"Catalog anomaly: both ASINs resolve to the Beverage/Drink Dispenser listing instead of their own products. Verify ASIN/variation mapping in Seller Central US.", hijacker:null, resolved:false },
   { date:"2026-06-10", type:"watch", market:"CA", asin:"B0F8P35KT5", product:"200ml Beer Glass Set — CA", detail:"Automated check blocked by Amazon bot-protection. Using last known data (Jun 1, 2026). Variant page — seller identity could not be confirmed. Verify manually in Seller Central CA.", hijacker:null, resolved:false },
   { date:"2026-06-01", type:"watch", market:"CA", asin:"B0F8P35KT5", product:"200ml Beer Glass Set — CA", detail:"Variant page shown during automated check — seller could not be confirmed. Verify Buy Box status manually in Seller Central CA.", hijacker:null, resolved:false },
   { date:"2026-05-26", type:"watch", market:"US", asin:"B0CYDHK3DS", product:"Cocktail Tree Stand — US", detail:"7 competing sellers from $27.05. Ksestor holds Buy Box. Verify all sellers — send C&D to unauthorized. Monitor pricing.", hijacker:null, resolved:false },
@@ -812,7 +883,7 @@ const ALERTS = [
 
 let currentView = 'internal';
 let currentMarket = 'US';
-let currentDate = '2026-06-01';
+let currentDate = '2026-06-23';
 let currentTab = 'monitor';
 
 function statusBadge(s) {

@@ -1385,7 +1385,7 @@ const ALERTS = [
 
 let currentView = 'internal';
 let currentMarket = 'US';
-let currentDate = '2026-08-17';
+let currentDate = Object.keys(DATA)[0]; // always the newest check (top entry in DATA)
 let currentTab = 'monitor';
 
 function statusBadge(s) {

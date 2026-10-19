@@ -111,7 +111,8 @@
   <div style="display:flex;align-items:center;gap:8px;margin-left:10px;">
     <label>Date</label>
     <select id="dateSelector" onchange="onDateChange()">
-      <option value="2026-09-28" selected>September 28, 2026 (Latest)</option>
+      <option value="2026-10-19" selected>October 19, 2026 (Latest)</option>
+      <option value="2026-09-28">September 28, 2026</option>
       <option value="2026-09-15">September 15, 2026</option>
       <option value="2026-08-31">August 31, 2026</option>
       <option value="2026-08-17">August 17, 2026</option>
@@ -201,6 +202,79 @@
 
 <script>
 const DATA = {
+  "2026-10-19": {
+    label: "October 19, 2026",
+    US: {
+      products: [
+        { product:"Drawer (Pod Holder)", asin:"B09FMVDZ1W", ourPrice:"$29.99", bbPrice:"$29.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, Ships from Amazon, In Stock. Price unchanged at $29.99. No competing offers." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"$69.99", bbPrice:"$69.99", bbWinner:"Ksestor", otherSellers:2, status:"WATCH", notes:"Live-verified: Sold by Ksestor, In Stock. Price unchanged. 2 Used - Like New offers: Ksestor (own used/resell) $55.99 and Amazon Resale $59.75. No third-party New sellers - not a hijack." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"*** IMPROVED - WATCH -> WON *** Sold by Ksestor, In Stock at $34.99. The 2 undercutting offers (from $31.99) are gone - offer list now shows only Ksestor." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"$36.99", bbPrice:"$36.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. PRICE UP from $34.99 to $36.99 (+6%) - confirm intentional. No competing offers." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"- (listing dead)", otherSellers:0, status:"LOST", notes:"*** URGENT - 4th CONSECUTIVE CYCLE *** amazon.com/dp/B0C6FJ3WFQ still returns HTTP 404 'Page Not Found'. Dead since 08-31 (7 weeks of lost sales). Escalate the Seller Central US case." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"$34.99", bbPrice:"$34.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. Price unchanged. Clean win. Black variant ASIN still dead." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"$32.96", bbPrice:"$32.96", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. Price unchanged at $32.96. Clean win." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"$37.99", bbPrice:"$37.99", bbWinner:"Ksestor", otherSellers:10, status:"WATCH", notes:"Live-verified: Sold by Ksestor, In Stock at $37.99. Offer list (1st page) shows 10 Used offers: 9 are Ksestor's own used/resell units ($24.99-$31.99) + 1 Amazon Resale ($22.88). No third-party New sellers found - previous '13 offers' appear to be mostly our own used stock." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"$29.99", bbPrice:"$29.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. PRICE DOWN from $34.99 to $29.99 (-14%) - confirm intentional promo/reprice. No competing offers." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"$19.99", bbPrice:"$19.99", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. Price unchanged. Clean win." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"$21.97", bbPrice:"$21.97", bbWinner:"Ksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Ksestor, In Stock. Price unchanged. Clean win." },
+        { product:"Drip Tray", asin:"B0GQ758ZTH", ourPrice:"$38.99", bbPrice:"$38.99", bbWinner:"Ksestor", otherSellers:3, status:"WATCH", notes:"Sold by Ksestor, In Stock. Price DOWN from $39.99 to $38.99. 3 Used offers ($29.39-$33.59) are ALL sold by Ksestor (own used/resell) - not unauthorized sellers. Monitor." }
+      ],
+      summary: { won:8, watch:3, lost:1 },
+      actions: [
+        { priority:"URGENT", asin:"B0C6FJ3WFQ", action:"US Dust Cover (Black) listing DEAD for a 4th consecutive cycle (HTTP 404 since 08-31, 7 weeks). Escalate the Seller Central US case.", market:"Amazon US" },
+        { priority:"MED", asin:"B0CBLBK32X, B0DYF7X18K, B0GQ758ZTH", action:"US price changes: Flight Board $34.99 -> $36.99, Pink Tower $34.99 -> $29.99, Drip Tray $39.99 -> $38.99. Confirm all are intentional.", market:"Amazon US" },
+        { priority:"MED", asin:"B0DLLMHSCH, B0GQ758ZTH, B0CK9L7CGF", action:"US 'competing offers' on Clear Tower / Drip Tray / Dispenser are Used offers from Ksestor itself + Amazon Resale - no third-party hijackers. Consider clearing excess used units if they cannibalize New sales.", market:"Amazon US" },
+        { priority:"LOW", asin:"B0CYDHK3DS", action:"GOOD NEWS - US Cocktail Tree Stand back to a clean WON (undercutting offers gone).", market:"Amazon US" }
+      ]
+    },
+    CA: {
+      products: [
+        { product:"Drawer", asin:"B09FMVDZ1W", ourPrice:"N/A", bbPrice:"CA$63.04", bbWinner:"Amazon US (cross-border)", otherSellers:1, status:"LOST", notes:"*** CHANGED *** BB held by 'Amazon US' at CA$63.04 (was CA$61.18). Unauthorized 'Layger' is BACK on the listing at CA$76.06. No K-Store, LLC offer. List a K-Store offer to reclaim." },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"N/A", bbPrice:"CA$125.82", bbWinner:"Amazon US (cross-border)", otherSellers:1, status:"LOST", notes:"*** 7th consecutive cycle without our Buy Box *** BB 'Amazon US' CA$125.82; unauthorized 'Layger' still on listing at CA$153.18. No K-Store, LLC offer." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"N/A", bbPrice:"CA$68.68", bbWinner:"Amazon US (cross-border)", otherSellers:1, status:"LOST", notes:"*** CHANGED *** Buy Box no longer suppressed - now held by 'Amazon US' at CA$68.68. Unauthorized 'Layger' at CA$82.60. No K-Store, LLC offer." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"N/A", bbPrice:"CA$98.63", bbWinner:"Layger (UNAUTHORIZED)", otherSellers:0, status:"LOST", notes:"*** ONGOING HIJACK - 3rd consecutive cycle *** 'Layger' holds the Buy Box and RAISED price again CA$94.79 -> CA$98.63. Only offer on the listing. Escalate via Brand Registry, test buy, notify Kseniia." },
+        { product:"Champagne Tower (Clear)", asin:"B0GQ58C6XX", ourPrice:"CA$49.99", bbPrice:"CA$49.99", bbWinner:"K-Store, LLC", otherSellers:0, status:"WON", notes:"Live-verified: Sold by K-Store, LLC, Ships from Amazon, In Stock. Unchanged. No other offers." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"N/A", bbPrice:"CA$59.25", bbWinner:"Amazon US (cross-border)", otherSellers:0, status:"LOST", notes:"*** CHANGED *** Buy Box no longer suppressed - now held by 'Amazon US' at CA$59.25 (was CA$65.52 offer). No K-Store, LLC offer - 2nd cycle lost." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"N/A", bbPrice:"CA$44.44", bbWinner:"Amazon US (cross-border)", otherSellers:1, status:"NOLINK", notes:"No CA link in product master list, but ASIN is live on amazon.ca: BB 'Amazon US' CA$44.44 + unauthorized 'Layger' CA$54.93. Add link to master list; decide on K-Store offer." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"N/A", bbPrice:"CA$47.50", bbWinner:"Amazon US (cross-border)", otherSellers:1, status:"LOST", notes:"*** CHANGED *** Buy Box no longer suppressed - held by 'Amazon US' at CA$47.50. Unauthorized 'Layger' at CA$58.31. No K-Store, LLC offer." },
+        { product:"Drip Tray", asin:"B0GQ758ZTH", ourPrice:"CA$49.99", bbPrice:"CA$49.99", bbWinner:"K-Store, LLC", otherSellers:1, status:"WATCH", notes:"Sold by K-Store, LLC at CA$49.99, Ships from Amazon, In Stock - 4th cycle holding BB. Unauthorized 'Layger' still on listing at CA$86.89." }
+      ],
+      summary: { won:1, watch:1, lost:6 },
+      actions: [
+        { priority:"URGENT", asin:"B0CBLBK32X", action:"ONGOING hijack by 'Layger' on Amazon CA Flight Board - 3rd cycle, price raised again CA$94.79 -> CA$98.63. Escalate Brand Registry case, test buy, notify Kseniia.", market:"Amazon CA" },
+        { priority:"URGENT", asin:"B09FMVDZ1W, B0CK9L7CGF, B0CYDHK3DS, B0F8P35KT5, B0F8P4R6SJ, B0GQ758ZTH", action:"'Layger' (unauthorized) on 7 KSESTOR CA ASINs incl. Drawer (returned, CA$76.06). File one consolidated Brand Registry report + C&D.", market:"Amazon CA" },
+        { priority:"URGENT", asin:"B09FMVDZ1W, B0CK9L7CGF, B0CYDHK3DS, B0DYF7X18K, B0F8P35KT5", action:"No K-Store, LLC offer on these 5 CA listings - Buy Box held by 'Amazon US' cross-border. Check inventory/offer status in Seller Central CA, restock and relist.", market:"Amazon CA" },
+        { priority:"LOW", asin:"B0F8P4R6SJ", action:"160ml Glass Set live on amazon.ca (Amazon US CA$44.44 + Layger). Add CA link to master list.", market:"Amazon CA" }
+      ]
+    },
+    UK: {
+      products: [
+        { product:"Drawer", asin:"B09FMVDZ1W", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"- (BB suppressed)", otherSellers:1, status:"LOST", notes:"*** ONGOING - 3rd cycle *** No featured offer; only offer is 'Amazon US' cross-border at GBP 42.58. No Hostwithksestor offer. Restock / reactivate in Seller Central UK. [Checked with UK postcode London W1K 3JP]" },
+        { product:"Beverage Dispenser", asin:"B0CK9L7CGF", ourPrice:"GBP 49.99", bbPrice:"GBP 49.99", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Sold by Hostwithksestor, Ships from Amazon, GBP 49.99. *** STOCKOUT RISK: 'Only 1 left in stock' (was 4) *** - Buy Box will be lost when it sells. Replenish FBA immediately. Link B0F2GHXS1P resolves here." },
+        { product:"Cocktail Tree Stand", asin:"B0CYDHK3DS", ourPrice:"GBP 21.99", bbPrice:"GBP 21.99", bbWinner:"Hostwithksestor", otherSellers:2, status:"WATCH", notes:"*** CHANGED - WON -> WATCH *** Hostwithksestor holds BB at GBP 21.99 ('Only 9 left'). NEW unauthorized sellers on listing: 'ZURICA' GBP 56.46 and 'Fast Media Ships From USA' GBP 58.72. Send C&D / report." },
+        { product:"Flight Board", asin:"B0CBLBK32X", ourPrice:"N/A", bbPrice:"GBP 41.10", bbWinner:"madechengshangdian (UNAUTHORIZED)", otherSellers:0, status:"LOST", notes:"*** NEW HIJACKER *** Buy Box held by unauthorized seller 'madechengshangdian' at GBP 41.10 (merchant-fulfilled, dispatched in 2-3 days). Only offer on listing - no Hostwithksestor offer. Report via Brand Registry, test buy, notify Kseniia." },
+        { product:"Dust Cover (Black)", asin:"B0C6FJ3WFQ", ourPrice:"N/A", bbPrice:"GBP 33.19", bbWinner:"Amazon", otherSellers:1, status:"LOST", notes:"*** ONGOING LOSS - 5th consecutive cycle *** ASIN redirects to Gray listing (B0C6FLYP8D); BB generic 'Amazon' GBP 33.19 (was 33.32). Hostwithksestor not on listing." },
+        { product:"Dust Cover (Gray)", asin:"B0C6FLYP8D", ourPrice:"N/A", bbPrice:"GBP 33.19", bbWinner:"Amazon", otherSellers:1, status:"LOST", notes:"*** ONGOING LOSS - 5th consecutive cycle *** BB 'Amazon' GBP 33.19 ('Only 12 left'); 2nd offer 'Amazon EU' GBP 38.12. No Hostwithksestor offer." },
+        { product:"Carousel", asin:"B08XZP2N4D", ourPrice:"N/A", bbPrice:"GBP 29.52", bbWinner:"Amazon", otherSellers:0, status:"LOST", notes:"*** ONGOING LOSS - 5th consecutive cycle *** BB 'Amazon' GBP 29.52 (was 36.37 - price DOWN). Only offer on listing. Verify Hostwithksestor offer status." },
+        { product:"Champagne Tower (Clear)", asin:"B0DLLMHSCH", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"-", otherSellers:0, status:"LOST", notes:"*** URGENT - UNRESOLVED SINCE JUNE 23 (17 weeks) *** Still HTTP 404 'Page Not Found' on amazon.co.uk. Hero product absent from UK." },
+        { product:"Champagne Tower (Pink)", asin:"B0DYF7X18K", ourPrice:"N/A", bbPrice:"N/A", bbWinner:"-", otherSellers:0, status:"LOST", notes:"*** URGENT - UNRESOLVED SINCE JUNE 23 (17 weeks) *** Still HTTP 404 'Page Not Found' on amazon.co.uk." },
+        { product:"160ml Glass Cup Set (5oz x4)", asin:"B0F8P4R6SJ", ourPrice:"N/A", bbPrice:"GBP 26.34", bbWinner:"Amazon US", otherSellers:3, status:"WATCH", notes:"'Amazon US' cross-border holds BB at GBP 26.34. *** NEW *** 3 unauthorized third-party offers appeared: 'Fast Media Ships From USA' GBP 36.31, 'ZURICA' GBP 36.36, 'Nestos Shop Ltd' GBP 46.54. No Hostwithksestor offer." },
+        { product:"200ml Beer Glass Set (7oz x4)", asin:"B0F8P35KT5", ourPrice:"N/A", bbPrice:"GBP 37.72", bbWinner:"Amazon US", otherSellers:1, status:"WATCH", notes:"'Amazon US' cross-border holds BB at GBP 37.72 (was 37.79). *** NEW *** unauthorized 'Nestos Shop Ltd' GBP 51.84. No Hostwithksestor offer." },
+        { product:"Drip Tray", asin:"B0GQ758ZTH", ourPrice:"GBP 29.99", bbPrice:"GBP 29.99", bbWinner:"Hostwithksestor", otherSellers:0, status:"WON", notes:"Live-verified: Sold by Hostwithksestor, Ships from Amazon, In Stock at GBP 29.99. No other offers." }
+      ],
+      summary: { won:2, watch:3, lost:7 },
+      actions: [
+        { priority:"URGENT", asin:"B0CBLBK32X", action:"NEW HIJACKER on Amazon UK Flight Board: 'madechengshangdian' holds the Buy Box at GBP 41.10 (only offer). Report via Brand Registry / Report a Violation, place a test buy, send C&D, notify Kseniia today.", market:"Amazon UK" },
+        { priority:"URGENT", asin:"B0CK9L7CGF", action:"UK Beverage Dispenser: only 1 unit left in stock - Buy Box will be lost on next sale. Ship FBA replenishment immediately.", market:"Amazon UK" },
+        { priority:"URGENT", asin:"B0DLLMHSCH, B0DYF7X18K", action:"Both UK Champagne Tower listings still 404 - unresolved 17 weeks (since June 23). Escalate with Seller Central UK case ID.", market:"Amazon UK" },
+        { priority:"URGENT", asin:"B09FMVDZ1W", action:"UK Drawer: no Hostwithksestor offer, only 'Amazon US' GBP 42.58. Restock / reactivate in Seller Central UK.", market:"Amazon UK" },
+        { priority:"HIGH", asin:"B0CYDHK3DS, B0F8P4R6SJ, B0F8P35KT5", action:"NEW unauthorized UK sellers: 'ZURICA' and 'Fast Media Ships From USA' (Tree Stand, 160ml Set), 'Nestos Shop Ltd' (160ml Set, Beer Glass). Send C&D and report via Brand Registry.", market:"Amazon UK" },
+        { priority:"HIGH", asin:"B0C6FJ3WFQ, B0C6FLYP8D, B08XZP2N4D", action:"Buy Box held by generic 'Amazon' for a 5th cycle (Dust Covers GBP 33.19, Carousel GBP 29.52). Confirm if Amazon Retail; verify Hostwithksestor offers.", market:"Amazon UK" },
+        { priority:"MED", asin:"B0F8P35KT5, B0F8P4R6SJ", action:"UK glass sets sold only via 'Amazon US' cross-border and now attracting resellers. Consider a direct Hostwithksestor UK offer.", market:"Amazon UK" },
+        { priority:"LOW", asin:"ALL UK", action:"UK checks this cycle ran with UK postcode London W1K 3JP (prior cycles used a non-UK location) - UK prices are now UK-domestic.", market:"Amazon UK" }
+      ]
+    }
+  },
   "2026-09-28": {
     label: "September 28, 2026",
     US: {
@@ -1389,6 +1463,17 @@ const DATA = {
 };
 
 const ALERTS = [
+  { date:"2026-10-19", type:"hijacker", market:"UK", asin:"B0CBLBK32X", product:"Flight Board \u2014 UK", detail:"\ud83d\udd34 NEW HIJACKER: unauthorized seller 'madechengshangdian' holds the Buy Box at \u00a341.10 (merchant-fulfilled; only offer). Report via Brand Registry, test buy, C&D, notify Kseniia.", hijacker:"madechengshangdian", resolved:false },
+  { date:"2026-10-19", type:"hijacker", market:"CA", asin:"B0CBLBK32X", product:"Flight Board \u2014 CA", detail:"\ud83d\udd34 ONGOING HIJACK (3rd cycle): 'Layger' holds the Buy Box and raised price again CA$94.79 \u2192 CA$98.63.", hijacker:"Layger", resolved:false },
+  { date:"2026-10-19", type:"hijacker", market:"CA", asin:"B09FMVDZ1W, B0CK9L7CGF, B0CYDHK3DS, B0F8P35KT5, B0F8P4R6SJ, B0GQ758ZTH", product:"Drawer, Dispenser, Tree Stand, Beer Glass, 160ml Set, Drip Tray \u2014 CA", detail:"\ud83d\udd34 'Layger' now on 7 KSESTOR CA ASINs \u2014 back on the Drawer (CA$76.06). Consolidated Brand Registry report + C&D.", hijacker:"Layger", resolved:false },
+  { date:"2026-10-19", type:"hijacker", market:"UK", asin:"B0CYDHK3DS, B0F8P4R6SJ, B0F8P35KT5", product:"Tree Stand, 160ml Set, Beer Glass \u2014 UK", detail:"\ud83d\udfe0 NEW unauthorized UK sellers: 'ZURICA', 'Fast Media Ships From USA', 'Nestos Shop Ltd' (not holding BB). Send C&D.", hijacker:"ZURICA / Fast Media Ships From USA / Nestos Shop Ltd", resolved:false },
+  { date:"2026-10-19", type:"lost", market:"CA", asin:"B09FMVDZ1W, B0CK9L7CGF, B0CYDHK3DS, B0DYF7X18K, B0F8P35KT5", product:"Drawer, Dispenser, Tree Stand, Pink Tower, Beer Glass \u2014 CA", detail:"\ud83d\udd34 Buy Box held by 'Amazon US' cross-border on all 5 (no longer suppressed). No K-Store, LLC offer \u2014 restock/relist.", hijacker:false, resolved:false },
+  { date:"2026-10-19", type:"lost", market:"US", asin:"B0C6FJ3WFQ", product:"Dust Cover (Black) \u2014 US", detail:"\ud83d\udd34 URGENT (4th cycle): still HTTP 404 since 08-31 \u2014 7 weeks of lost sales.", hijacker:false, resolved:false },
+  { date:"2026-10-19", type:"lost", market:"UK", asin:"B0DLLMHSCH, B0DYF7X18K", product:"Champagne Tower Clear & Pink \u2014 UK", detail:"\ud83d\udd34 URGENT: both listings still 404 \u2014 17 weeks unresolved (since June 23).", hijacker:false, resolved:false },
+  { date:"2026-10-19", type:"lost", market:"UK", asin:"B09FMVDZ1W", product:"Drawer \u2014 UK", detail:"\ud83d\udd34 No Hostwithksestor offer; only 'Amazon US' \u00a342.58 (3rd cycle).", hijacker:false, resolved:false },
+  { date:"2026-10-19", type:"lost", market:"UK", asin:"B0C6FJ3WFQ, B0C6FLYP8D, B08XZP2N4D", product:"Dust Cover Black/Gray, Carousel \u2014 UK", detail:"\ud83d\udd34 ONGOING (5th cycle): generic 'Amazon' holds the Buy Box (Dust Covers \u00a333.19, Carousel \u00a329.52).", hijacker:"Amazon (unconfirmed)", resolved:false },
+  { date:"2026-10-19", type:"watch", market:"UK", asin:"B0CK9L7CGF", product:"Beverage Dispenser \u2014 UK", detail:"Buy Box WON at \u00a349.99 but ONLY 1 UNIT LEFT \u2014 replenish FBA immediately.", hijacker:null, resolved:false },
+  { date:"2026-10-19", type:"resolved", market:"US", asin:"B0CYDHK3DS", product:"Cocktail Tree Stand \u2014 US", detail:"\u2705 Undercutting offers gone \u2014 clean WON at $34.99. Drip Tray/Dispenser/Clear Tower 'competing offers' confirmed as Ksestor's own Used offers + Amazon Resale.", hijacker:null, resolved:true },
   { date:"2026-09-28", type:"hijacker", market:"CA", asin:"B0CBLBK32X", product:"Flight Board \u2014 CA", detail:"\ud83d\udd34 ONGOING HIJACK (2nd cycle): 'Layger' still holds the Buy Box and raised the price CA$87.75 \u2192 CA$94.79. Escalate via Brand Registry + test buy; notify Kseniia.", hijacker:"Layger", resolved:false },
   { date:"2026-09-28", type:"hijacker", market:"CA", asin:"B0CK9L7CGF, B0CYDHK3DS, B0F8P35KT5, B0F8P4R6SJ, B0GQ758ZTH", product:"Dispenser, Tree Stand, Beer Glass, 160ml Set, Drip Tray \u2014 CA", detail:"\ud83d\udd34 'Layger' (unauthorized) now has offers on 6 KSESTOR CA listings: Dispenser CA$152.62, Tree Stand CA$82.50, Beer Glass CA$64.49 (relisted), 160ml Set CA$54.93, Drip Tray CA$88.56. File one consolidated Brand Registry report + C&D.", hijacker:"Layger", resolved:false },
   { date:"2026-09-28", type:"lost", market:"CA", asin:"B09FMVDZ1W, B0CK9L7CGF", product:"Drawer, Beverage Dispenser \u2014 CA", detail:"\ud83d\udd34 Buy Box moved from Layger to 'Amazon US' cross-border (Drawer CA$61.18, Dispenser CA$126.17). No K-Store, LLC offer on either listing \u2014 restock/relist to reclaim.", hijacker:false, resolved:false },
